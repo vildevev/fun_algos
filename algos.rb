@@ -16,3 +16,20 @@ def sort_by_string(s, t)
 	end 
 	new_str
 end
+
+def decode_string(s)
+  string = ''
+  enumerator = 1
+  add_to_string = ''
+  s.each_char do |el|
+    if el == ']'
+      string.concat(add_to_string * enumerator)
+      add_to_string = ''
+    elsif /\A\d+\z/ === el
+      enumerator = el.to_i
+    elsif el != '['
+      add_to_string.concat(el)
+    end
+  end
+  string
+end 
