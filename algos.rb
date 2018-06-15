@@ -19,17 +19,25 @@ end
 
 def decode_string(s)
   string = ''
-  enumerator = 1
-  add_to_string = ''
+  arr = []
   s.each_char do |el|
-    if el == ']'
-      string.concat(add_to_string * enumerator)
-      add_to_string = ''
-    elsif /\A\d+\z/ === el
-      enumerator = el.to_i
-    elsif el != '['
-      add_to_string.concat(el)
+    if el != ']' || '['
+      if /\A\d+\z/ === el
+        arr.push(el.to_i)
+      elsif arr[-1].is_a? String
+        arr[-1].concat(el)
+      else 
+        arr.push(el)
+      end 
     end
+  end
+  i = arr.length - 1
+  until i < 0 do
+    if string != ''
+      arr[i].concat(string)
+    end 
+    string.prepend(arr[i] * arr[i-1])
+    i -= 2
   end
   string
 end 
