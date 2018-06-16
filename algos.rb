@@ -1,4 +1,5 @@
-# Runtime = O(mn)
+# Time complexity = O(mn)
+# Space complexity = O(n)
 def sort_by_string(s, t)
 	s_chars = {}
 	new_str = ''
@@ -17,6 +18,8 @@ def sort_by_string(s, t)
 	new_str
 end
 
+# Time complexity = O(n)
+# Space complexity = O(n)
 def decode_string(s)
   string = ''
   arr = []
@@ -40,4 +43,15 @@ def decode_string(s)
     i -= 2
   end
   string
+end
+
+def change_possibilities(target, nums)
+	nums.each_with_index do |num, i|
+		if num == target 
+			possible += 1 
+		elsif num + nums[i+1] == target 
+			possible += 1 
+		else 
 end 
+
+change_possibilities(4, [1,2,3])
