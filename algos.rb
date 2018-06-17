@@ -1,7 +1,13 @@
 # Time complexity = O(m + n)
 # Space complexity = O(n)
+
+# Edge cases accounted for:
+# - Strings are different lengths -> sorts the first string in order of the second, add additional characters to the end
+# - Second string is empty -> return the first string in original order
+# - Second string is not a string -> return the first string in original order
+
 def sort_by_string(s, t)
-  # return the first string if the second is empty or not a string
+  # Return the first string if the second is empty or not a string
   return s if !t.is_a? String or t == ''
 	s_chars = {}
   additional_chars = []
@@ -20,13 +26,10 @@ def sort_by_string(s, t)
 		end 
 	end
   if !s_chars.empty?
-    # If the first string contains characters that are not present in the second string, add them in alphabetical order at the end
-    s_chars.map do |k,v| 
-      additional_chars.push(k * v)
-    end
-    additional_chars.sort!
-    additional_chars.each { |char| new_str.concat(char) }
-  end  
+    # If the first string contains characters that are not present in the second string
+    # add them to the end
+    s_chars.map { |k,v| new_str.concat(k * v) }
+  end
 	new_str
 end
 
