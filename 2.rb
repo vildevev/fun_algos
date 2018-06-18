@@ -1,7 +1,13 @@
 # Time complexity = O(n)
 # Space complexity = O(n)
+
+# Edge cases accounted for:
+# - Brackets not formatted correctly -> return function, ask user to format correctly
+# - No multiplier in front of letters -> multiply it by 1
+
 def decode_string(s)
   string = ''
+  bracket_validator = []
   arr = []
   s.each_char do |el|
     if el != ']' and el != '['
@@ -17,16 +23,24 @@ def decode_string(s)
       else
         arr.push(el)
       end
+    else
+      if el == '['
+        bracket_validator.push(el)
+      else 
+        bracket_validator.pop
+      end 
     end
   end
+  # Return if the input is not formatted correctly
+  return puts "Please format brackets correctly" if !bracket_validator.empty?
   i = arr.length - 1
   until i < 0 do
     if !string.empty?
       arr[i] = arr[i].concat(string)
-    end 
-    if arr[i-1].is_a? Numeric 
-      string = arr[i] * arr[i-1]
     end
+    # If the string doesn't contain a multiplier number
+    multiplier = (arr[i-1].is_a? Numeric) ? arr[i-1] : 1
+    string = arr[i] * multiplier
     i -= 2
   end
   p string
