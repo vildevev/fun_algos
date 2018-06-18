@@ -6,6 +6,8 @@
 # - No multiplier in front of letters -> multiply it by 1
 
 def decode_string(s)
+  # Return the first string if the second is empty or not a string
+  return puts "Please provide a valid input, ex. '4[ab]'" if !s.is_a? String or s == ''
   string = ''
   bracket_validator = []
   arr = []
