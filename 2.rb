@@ -4,22 +4,29 @@ def decode_string(s)
   string = ''
   arr = []
   s.each_char do |el|
-    if el != ']' || '['
+    if el != ']' and el != '['
       if /\A\d+\z/ === el
-        arr.push(el.to_i)
+        if arr[-1].is_a? Numeric
+          num = arr[-1].to_s.concat(el)
+          arr[-1] = num.to_i
+        else 
+          arr.push(el.to_i)
+        end
       elsif arr[-1].is_a? String
         arr[-1].concat(el)
-      else 
+      else
         arr.push(el)
-      end 
+      end
     end
   end
   i = arr.length - 1
   until i < 0 do
-    if string != ''
-      arr[i].concat(string)
+    if !string.empty?
+      arr[i] = arr[i].concat(string)
     end 
-    string.prepend(arr[i] * arr[i-1])
+    if arr[i-1].is_a? Numeric 
+      string = arr[i] * arr[i-1]
+    end
     i -= 2
   end
   p string
